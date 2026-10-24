@@ -1,0 +1,68 @@
+# ============================================================
+# pyproject.toml (Python project configuration)
+# ============================================================
+# Updated: 2026-10-16
+#
+# REQ: All Python src/ projects SHOULD include pyproject.toml.
+# WHAT: Defines project identity, dependencies, and build configuration.
+# WHY: Keeps Python project metadata and package requirements together.
+# CUSTOM: Update project identity, dependencies, and package paths.
+
+# ============================================================
+# === SECTION: PROJECT IDENTITY ===
+# ============================================================
+
+[project]
+name = "se-theory-operational-identity" # Package distribution name (lowercase and dashes).
+readme = "README.md"
+requires-python = ">=3.15"
+version = "0.3.0"
+
+# ============================================================
+# === SECTION: PROJECT RUNTIME DEPENDENCIES ===
+# ============================================================
+
+# ============================================================
+# === SECTION: PROJECT RUNTIME DEPENDENCIES ===
+# ============================================================
+
+dependencies = []
+
+# ============================================================
+# === SECTION: DEVELOPMENT AND DOCUMENTATION DEPENDENCIES ===
+# ============================================================
+# These packages support developing, testing, and documenting the project.
+# They are not required to execute the project code.
+
+[dependency-groups]
+# WHY: Development and documentation tools support maintaining, validating,
+#      and documenting the project without becoming runtime dependencies.
+
+dev = []
+
+docs = [
+    # REQ.DOCS.DEPS: Standard tools for generating project documentation.
+    "zensical",             # WHY: Build the project documentation website.
+]
+
+# ============================================================
+# === SECTION 2: TOOL CONFIGURATION ===
+# ============================================================
+
+# === MARKDOWNLINT (MARKDOWN LINTING) ===
+
+[tool.markdownlint]
+MD033 = false # WHY: Allow inline HTML such as details, summary, iframe, and video.
+
+# === UV (PYTHON ENVIRONMENT AND DEPENDENCY MANAGEMENT) ===
+
+[tool.uv]
+# WHY: Install all repository tooling with the canonical `uv sync`.
+default-groups = "all"
+
+# WHY: Give a bit of time to find hijacked releases before installing.
+# CUSTOM: Should match `uvx prek update --freeze --cooldown-days 7`.
+exclude-newer = "7 days"
+
+# WHY: Repository tooling updates must be usable immediately.
+exclude-newer-package = {se-theory-reference-kit = false}

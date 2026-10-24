@@ -1,0 +1,60 @@
+# regime-transformations.toml
+
+[meta]
+source = "se-theory-operational-identity"
+namespace = "se.identity-regimes"
+artifact = "regime-transformations"
+version = "0.1.0"
+status = "canonical"
+
+# === Transformations ===
+
+[transformations.RE]
+order = 1
+label = "RE"
+description = "Retain exact identity without alteration."
+
+[transformations.AN]
+order = 2
+label = "AN"
+description = "Alter naming or labeling while preserving identity."
+
+[transformations.RF]
+order = 3
+label = "RF"
+description = "Refine structure or representation while preserving identity."
+
+[transformations.AD]
+order = 4
+label = "AD"
+description = "Adapt representation to a different form while maintaining correspondence."
+
+[transformations.RC]
+order = 5
+label = "RC"
+description = "Reclassify into a different category or interpretation context."
+
+[transformations.RA]
+order = 6
+label = "RA"
+description = "Reassign association or relationship while preserving referential linkage."
+
+[transformations.SU]
+order = 7
+label = "SU"
+description = "Substitute with a different entity or structure."
+
+[transformations.BF]
+order = 8
+label = "BF"
+description = "Break identity or continuity such that equivalence no longer holds."
+
+[transformations.SE]
+order = 9
+label = "SE"
+description = "Separate into distinct components or identities."
+
+[transformations.PV]
+order = 10
+label = "PV"
+description = "Project or derive a view from the original without preserving full identity."

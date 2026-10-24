@@ -1,0 +1,57 @@
+# ============================================================
+# .github/workflows/ci-lean.yml (ALL-LEAN)
+# ============================================================
+# UPDATED: 2026-10-24
+
+name: CI Lean
+
+on:
+  push:
+    branches: [main] # WHY: Run when pushing to main branch.
+  pull_request:
+    branches: [main] # WHY: Run on pull requests targeting main branch.
+  workflow_dispatch: # WHY: Allow manual triggering from Actions tab.
+
+permissions: # WHY: Use least privileges required.
+  contents: read
+
+env:
+  PYTHONUNBUFFERED: "1"     # WHY: Real-time logging.
+  PYTHONIOENCODING: "utf-8" # WHY: Ensure UTF-8 encoding for international characters.
+
+
+jobs:
+  lean-ci:
+    name: Build Lean and export contract
+    runs-on: ubuntu-latest # WHY: Linux environment matches most production deployments.
+    timeout-minutes: 10    # WHY: Prevent hanging jobs. If over time, likely stuck.
+
+    steps:
+      # ============================================================
+      # A) ASSEMBLE: Get code and set up Lean
+      # ============================================================
+
+      - name: A1) Checkout repository code
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+        # WHY: Required so all subsequent steps can access repo files.
+
+      - name: A2) Set up Lean toolchain
+        uses: leanprover/lean-action@24581d74d674803a25a81b10b059c5c0cdd344c6 # v1
+        with:
+          build: false
+          test: false
+          lint: false
+
+      # ============================================================
+      # B) BUILD: Compile Lean project
+      # ============================================================
+
+      - name: B1) Build Lean project
+        run: lake build --wfail
+        # WHY: Compiles the public Lean theory surface; --wfail fails the build on any warning, including `sorry`.
+
+      - name: B2) Build Lean test surface
+        run: lake test
+        # WHY: Confirms the declared Lean test imports and public surface compile.

@@ -1,0 +1,48 @@
+# ============================================================
+# CITATION.cff (How to cite this project)
+# ============================================================
+# REQ.UNIVERSAL: Professional open projects SHOULD include this file.
+# May reference upstream dependencies, but must not refer to downstream.
+# USAGE: See https://citation-file-format.github.io/ for details.
+# check with:
+# uvx cffconvert --validate
+
+cff-version: "1.2.0"
+message: "If you use this work, please cite it using the metadata in CITATION.cff."
+type: software
+
+title: "SE Theory: Operational Identity"
+version: "0.3.0"
+date-released: "2026-05-02"
+
+authors:
+  - family-names: Case
+    given-names: Denise M.
+    orcid: "https://orcid.org/0000-0001-6165-7389"
+    affiliation: "Northwest Missouri State University, School of Computer Science and Information Systems, Maryville, MO, USA"
+
+repository-code: "https://github.com/structural-explainability/se-theory-operational-identity"
+url: "https://github.com/structural-explainability/se-theory-operational-identity"
+
+license: MIT
+
+abstract: >
+  Lean 4 development of Operational Identity for Structural Explainability.
+  The theory concerns comparison of a declared identity relation with an
+  operational relation induced by an examined implementation surface.
+  Its intended scope includes conformance conditions, divergence witnesses,
+  and the assumptions needed to interpret audit results. Agreement with a
+  declaration does not independently establish the adequacy of that
+  declaration for its intended referents. Current formal definitions,
+  assumptions, and proved results are specified by the Lean source.
+
+
+keywords:
+  - structural-explainability
+  - operational-identity
+  - identity-conformance
+  - declared-identity
+  - divergence-witnesses
+  - lean4
+  - theorem-proving
+  - formal-verification

@@ -1,0 +1,110 @@
+# ============================================================
+# SE_MANIFEST.toml (Repository Declaration)
+# ============================================================
+
+schema = "se-manifest-schema"
+schema_version = "0.5.1"
+schema_url = "https://raw.githubusercontent.com/structural-explainability/se-manifest-schema/main/manifest-schema.toml"
+
+# === Framework Context ===
+
+[meta]
+framework = "Structural Explainability"
+framework_url = "https://github.com/structural-explainability"
+purpose = "Declares this repository's role in the Structural Explainability ecosystem."
+
+# === Repository Identity ===
+
+[repository]
+organization = "structural-explainability"
+name = "se-theory-operational-identity"
+class = "theory"
+kind = "foundation"
+status = "active"
+since = "2026"
+summary = "Formalizes comparison of declared identity relations with operational relations induced by examined implementation surfaces, including conformance conditions and divergence witnesses."
+
+# === Layer Position ===
+
+[layer]
+space = "formal-theory"
+role = "theory"
+
+# === Dependency Declarations ===
+
+[depends]
+# Required upstream repository dependencies.
+required = [
+  "se-theory-neutral-substrate",
+]
+
+# Optional upstream repository dependencies.
+optional = []
+
+# === Provided Artifacts ===
+
+[provides]
+# Logical artifacts exposed by this repository.
+# These are stable identifiers, not file paths.
+artifacts = [
+  "lean-library",
+  "theorem-set",
+  "regime-classification-matrix",
+  "regime-classification-values",
+  "regime-families",
+  "regime-profile-derivation",
+  "regime-profiles",
+  "regime-transformations",
+]
+
+# === Scope ===
+
+[scope]
+includes = [
+  "six canonical identity regimes (OBL, NOR, OCC, CTX, REC, ENR)",
+  "regime requirement structure",
+  "regime-profile structure",
+  "admissibility conditions for regime application over neutral substrates",
+  "necessity and sufficiency theorem structure",
+  "machine-checked Lean theorems",
+  "machine-readable reference artifacts for transformation and classification layers",
+]
+
+excludes = [
+  "neutral substrate primitives",
+  "substrate well-formedness",
+  "substrate separation constraints",
+  "persistence behavior",
+  "mapping semantics",
+  "operational validation logic",
+  "repository governance rules",
+  "schema definitions for other repositories",
+  "domain-specific mappings or data",
+  "runtime systems",
+]
+
+# === Validation ===
+
+[validation]
+# Validates repository declaration, manifest schema conformance,
+# reference artifacts, generated artifacts, and Lean public surface coverage.
+export_check_entrypoint = "uv run --locked se-theory-reference export --check"
+reference_entrypoint = "uv run --locked se-theory-reference validate"
+strict_entrypoint = "uv run --locked se-theory-reference validate --strict"
+
+# === Behavior / governance ===
+
+[naming]
+pattern = "se-theory-*"
+
+[governance]
+authority = "structural-explainability"
+
+# === External references ===
+
+[citation]
+cff = "CITATION.cff"
+preferred = "CITATION.cff"
+
+[traceability]
+identifier_map = "reference/theory-reference.toml"

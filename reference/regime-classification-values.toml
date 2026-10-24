@@ -1,0 +1,20 @@
+# regime-classification-values.toml
+# This file defines the three classification values
+# that are used as the basis for the
+# reference requirements in Identity Regimes.
+
+[meta]
+version = "0.1.0"
+status = "canonical"
+
+[values.IGN]
+label = "Ignore"
+description = "Transformation does not affect identity."
+
+[values.PRS]
+label = "Preserve"
+description = "Identity is preserved under the transformation."
+
+[values.BRK]
+label = "Break"
+description = "Transformation breaks identity."

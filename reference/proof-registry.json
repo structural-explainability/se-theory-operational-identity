@@ -1,0 +1,73 @@
+{
+  "schema": "se-proof-registry-1",
+  "repo": "se-theory-operational-identity",
+  "surface_module": "SE.IdentityRegimes.Surface",
+  "namespace": "IdentityRegimes",
+  "proof_system": "lean4",
+  "proofs": [
+    {
+      "id": "proof_all_regimes_canonical",
+      "theorem_id": "all_regimes_canonical",
+      "cite_id": "IR.THEOREM.all_regimes_canonical",
+      "status": "proved",
+      "lean_symbol": "all_regimes_canonical",
+      "source_module": "SE.IdentityRegimes.Vocab.Regimes"
+    },
+    {
+      "id": "proof_classification_pattern_unique",
+      "theorem_id": "classification_pattern_unique",
+      "cite_id": "IR.THEOREM.classification_pattern_unique",
+      "status": "proved",
+      "lean_symbol": "classification_pattern_unique",
+      "source_module": "SE.IdentityRegimes.Transform.LowerBound"
+    },
+    {
+      "id": "proof_derivedRegimeSet_card",
+      "theorem_id": "derivedRegimeSet_card",
+      "cite_id": "IR.THEOREM.derivedRegimeSet_card",
+      "status": "proved",
+      "lean_symbol": "derivedRegimeSet_card",
+      "source_module": "SE.IdentityRegimes.Transform.LowerBound"
+    },
+    {
+      "id": "proof_derivedRegimeSet_nodup",
+      "theorem_id": "derivedRegimeSet_nodup",
+      "cite_id": "IR.THEOREM.derivedRegimeSet_nodup",
+      "status": "proved",
+      "lean_symbol": "derivedRegimeSet_nodup",
+      "source_module": "SE.IdentityRegimes.Transform.LowerBound"
+    },
+    {
+      "id": "proof_derivedRegimeSet_complete",
+      "theorem_id": "derivedRegimeSet_complete",
+      "cite_id": "IR.THEOREM.derivedRegimeSet_complete",
+      "status": "proved",
+      "lean_symbol": "derivedRegimeSet_complete",
+      "source_module": "SE.IdentityRegimes.Transform.LowerBound"
+    },
+    {
+      "id": "proof_derivedRegimeSet_pairwise_noncollapse",
+      "theorem_id": "derivedRegimeSet_pairwise_noncollapse",
+      "cite_id": "IR.THEOREM.derivedRegimeSet_pairwise_noncollapse",
+      "status": "proved",
+      "lean_symbol": "derivedRegimeSet_pairwise_noncollapse",
+      "source_module": "SE.IdentityRegimes.Transform.LowerBound"
+    },
+    {
+      "id": "proof_nine_regime_lower_bound",
+      "theorem_id": "nine_regime_lower_bound",
+      "cite_id": "IR.THEOREM.nine_regime_lower_bound",
+      "status": "proved",
+      "lean_symbol": "nine_regime_lower_bound",
+      "source_module": "SE.IdentityRegimes.Transform.LowerBound"
+    },
+    {
+      "id": "proof_regime_application_admissible_of_neutral",
+      "theorem_id": "regime_application_admissible_of_neutral",
+      "cite_id": "IR.THEOREM.regime_application_admissible_of_neutral",
+      "status": "proved",
+      "lean_symbol": "regime_application_admissible_of_neutral",
+      "source_module": "SE.IdentityRegimes.Theorems"
+    }
+  ]
+}

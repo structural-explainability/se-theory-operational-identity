@@ -1,0 +1,68 @@
+# ============================================================
+# reference/theory-reference.toml
+# ============================================================
+# Theory reference configuration.
+#
+# WHY: The theory repository owns Lean source, reference TOML, and exported
+# JSON artifacts. The reusable kit owns validation, export, catalog, scaffold,
+# and inspection machinery.
+
+schema = "se-theory-reference"
+schema_version = "0.1.0"
+
+# === Repository Identity ===
+
+[repository]
+organization = "structural-explainability"
+name = "se-theory-operational-identity"
+theory = "identity-regimes"
+description = "Identity regimes theory repository for Structural Explainability."
+
+# === Lean Public Surface ===
+
+[lean]
+root_module = "SE.IdentityRegimes"
+public_modules = [
+  "SE.IdentityRegimes",
+  "SE.IdentityRegimes.Core",
+  "SE.IdentityRegimes.Spec",
+  "SE.IdentityRegimes.Surface",
+]
+
+test_modules = [
+  "TestAll",
+  "TestBasic",
+  "TestRegime",
+]
+
+# === Reference Artifacts ===
+
+[reference]
+root = "reference"
+
+# === Exported Machine Artifacts ===
+
+[export]
+root = "data/identity-regimes"
+
+# === Surface-Kind Mapping ===
+
+[surface_kinds]
+axiom = "reference/substrate-axioms.toml"
+dependency = "reference/dependency-registry.toml"
+predicate = "reference/substrate-predicates.toml"
+requirement = "reference/substrate-requirements.toml"
+theorem = "reference/substrate-theorems.toml"
+traceability = "reference/traceability-registry.toml"
+type = "reference/substrate-types.toml"
+
+# === Export Mapping ===
+
+[export_map]
+axiom = "data/identity-regimes/substrate-axiom-registry.json"
+catalog = "data/identity-regimes/identity-regimes-catalog.json"
+predicate = "data/identity-regimes/substrate-predicate-registry.json"
+requirement = "data/identity-regimes/substrate-requirement-registry.json"
+theorem = "data/identity-regimes/substrate-theorem-registry.json"
+traceability = "data/identity-regimes/traceability-registry.json"
+type = "data/identity-regimes/substrate-type-registry.json"
