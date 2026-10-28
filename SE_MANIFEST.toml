@@ -3,7 +3,7 @@
 # ============================================================
 
 schema = "se-manifest-schema"
-schema_version = "0.5.1"
+schema_version = "0.5.2"
 schema_url = "https://raw.githubusercontent.com/structural-explainability/se-manifest-schema/main/manifest-schema.toml"
 
 # === Framework Context ===
@@ -22,7 +22,7 @@ class = "theory"
 kind = "foundation"
 status = "active"
 since = "2026"
-summary = "Formalizes comparison of declared identity relations with operational relations induced by examined implementation surfaces, including conformance conditions and divergence witnesses."
+summary = "Formalizes declared and implementation-induced identity relations, their comparison, faithfulness, divergence witnesses, and conditional structural positioning."
 
 # === Layer Position ===
 
@@ -33,12 +33,9 @@ role = "theory"
 # === Dependency Declarations ===
 
 [depends]
-# Required upstream repository dependencies.
 required = [
-  "se-theory-neutral-substrate",
+  { repository = "se-theory-persistence", kind = "semantic", version = "v0.6.0" },
 ]
-
-# Optional upstream repository dependencies.
 optional = []
 
 # === Provided Artifacts ===
@@ -49,38 +46,46 @@ optional = []
 artifacts = [
   "lean-library",
   "theorem-set",
-  "regime-classification-matrix",
-  "regime-classification-values",
-  "regime-families",
-  "regime-profile-derivation",
-  "regime-profiles",
-  "regime-transformations",
+  "operational-treatment-definitions",
+  "declared-operational-comparison-definitions",
+  "faithfulness-definitions",
+  "divergence-witness-definitions",
+  "surface-composition-definitions",
+  "conditional-structural-positioning",
+  "finite-audit-verdict-definitions",
 ]
 
 # === Scope ===
 
 [scope]
 includes = [
-  "six canonical identity regimes (OBL, NOR, OCC, CTX, REC, ENR)",
-  "regime requirement structure",
-  "regime-profile structure",
-  "admissibility conditions for regime application over neutral substrates",
-  "necessity and sufficiency theorem structure",
-  "machine-checked Lean theorems",
-  "machine-readable reference artifacts for transformation and classification layers",
+  "declared identity relations supplied under explicit assumptions",
+  "implementation mechanisms and identity-relevant treatment signatures",
+  "operational equivalence relations induced by examined treatment",
+  "faithfulness as inclusion of declared identity in operational equivalence",
+  "finite divergence witnesses and their relationship to faithfulness",
+  "composition of identity-relevant implementation surfaces",
+  "conditional structural positioning relative to alternative identity relations",
+  "distinction between local alignment and global regime substitution",
+  "finite decidability under explicit assumptions",
+  "three-valued audit outcomes: pass, fail, and indeterminate",
+  "limits of conformance claims under incomplete implementation disclosure",
+  "machine-checked Lean definitions and theorems",
 ]
 
 excludes = [
-  "neutral substrate primitives",
-  "substrate well-formedness",
-  "substrate separation constraints",
-  "persistence behavior",
-  "mapping semantics",
-  "operational validation logic",
-  "repository governance rules",
-  "schema definitions for other repositories",
-  "domain-specific mappings or data",
-  "runtime systems",
+  "foundational persistence relations and identity-commitment calculus",
+  "neutral substrate primitives and referential foundations",
+  "foundational transformation operators and effect semantics",
+  "individuation and co-reference criteria",
+  "identity-regime inventories and transformation-classification matrices",
+  "scientific validation of declared identity criteria",
+  "inference of referent identity from equal implementation behavior",
+  "certification of complete implementation disclosure or observation",
+  "domain-specific identity commitments and mappings",
+  "empirical conformance studies and vulnerability-matching evaluations",
+  "runtime auditing systems and operational implementations",
+  "repository governance rules and external schema definitions",
 ]
 
 # === Validation ===
@@ -88,9 +93,9 @@ excludes = [
 [validation]
 # Validates repository declaration, manifest schema conformance,
 # reference artifacts, generated artifacts, and Lean public surface coverage.
-export_check_entrypoint = "uv run --locked se-theory-reference export --check"
-reference_entrypoint = "uv run --locked se-theory-reference validate"
-strict_entrypoint = "uv run --locked se-theory-reference validate --strict"
+export_check_entrypoint = "uvx se-theory-reference-kit@latest export --check"
+reference_entrypoint = "uvx se-theory-reference-kit@latest validate"
+strict_entrypoint = "uvx se-theory-reference-kit@latest validate --strict"
 
 # === Behavior / governance ===
 

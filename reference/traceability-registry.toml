@@ -1,0 +1,339 @@
+# ============================================================
+# Traceability Registry
+# se-theory-operational-identity
+# ============================================================
+# Only confirmed mappings are recorded here.
+# Each depends_on entry records a declaration that the Lean statement or proof
+# of the source uses.
+# No mapping to SE-210 manuscript identifiers is recorded:
+# none has been independently confirmed.
+
+schema = "se-traceability-registry-1"
+kind = "traceability"
+repo = "se-theory-operational-identity"
+
+[meta]
+source = "se-theory-operational-identity"
+namespace = "se.operational_identity"
+artifact = "traceability-registry"
+status = "canonical"
+
+# ============================================================
+# === DECLARED IDENTITY ===
+# ============================================================
+
+[trace.declared_of_generators_depends_on_generated]
+order = 1
+id = "declared_of_generators_depends_on_generated"
+from = "SE.OperationalIdentity.Declared.ofGenerators"
+to = [
+  "SE.Persistence.Generated",
+]
+relation = "depends_on"
+
+[trace.declared_of_licence_depends_on_licence]
+order = 2
+id = "declared_of_licence_depends_on_licence"
+from = "SE.OperationalIdentity.Declared.ofLicence"
+to = [
+  "SE.Persistence.Licence",
+  "SE.Persistence.Licence.identityRel",
+]
+relation = "depends_on"
+
+[trace.declared_of_classification_depends_on_classification]
+order = 3
+id = "declared_of_classification_depends_on_classification"
+from = "SE.OperationalIdentity.Declared.ofClassification"
+to = [
+  "SE.Persistence.Classification",
+  "SE.Persistence.Classification.identityRel",
+]
+relation = "depends_on"
+
+[trace.declared_classification_is_licence_derived]
+order = 4
+id = "declared_classification_is_licence_derived"
+from = "SE.OperationalIdentity.Declared.ofClassification_rel_eq_ofLicence_rel"
+to = [
+  "SE.OperationalIdentity.Declared.ofLicence",
+  "SE.OperationalIdentity.Declared.ofClassification",
+  "SE.Persistence.Classification.toLicence_identityRel",
+]
+relation = "depends_on"
+
+# ============================================================
+# === SURFACES AND TREATMENT ===
+# ============================================================
+
+[trace.same_treatment_of_mechanism_eq_depends_on_surface]
+order = 5
+id = "same_treatment_of_mechanism_eq_depends_on_surface"
+from = "SE.OperationalIdentity.Surface.sameTreatment_of_mechanism_eq"
+to = [
+  "SE.OperationalIdentity.Surface",
+  "SE.OperationalIdentity.Surface.SameTreatment",
+]
+relation = "depends_on"
+
+[trace.record_same_treatment_depends_on_record_surface]
+order = 6
+id = "record_same_treatment_depends_on_record_surface"
+from = "SE.OperationalIdentity.Surface.record_sameTreatment_iff"
+to = [
+  "SE.OperationalIdentity.Surface.record",
+  "SE.OperationalIdentity.Surface.SameTreatment",
+]
+relation = "depends_on"
+
+[trace.joint_same_treatment_depends_on_joint_surface]
+order = 7
+id = "joint_same_treatment_depends_on_joint_surface"
+from = "SE.OperationalIdentity.Surface.joint_sameTreatment_iff"
+to = [
+  "SE.OperationalIdentity.Surface.joint",
+  "SE.OperationalIdentity.Surface.SameTreatment",
+]
+relation = "depends_on"
+
+# ============================================================
+# === FAITHFULNESS AND DIVERGENCE ===
+# ============================================================
+
+[trace.faithful_iff_no_witness_depends_on_witness]
+order = 8
+id = "faithful_iff_no_witness_depends_on_witness"
+from = "SE.OperationalIdentity.faithful_iff_not_exists_witness"
+to = [
+  "SE.OperationalIdentity.Faithful",
+  "SE.OperationalIdentity.DivergenceWitness",
+]
+relation = "depends_on"
+
+[trace.witness_mechanism_ne_depends_on_control]
+order = 9
+id = "witness_mechanism_ne_depends_on_control"
+from = "SE.OperationalIdentity.Declared.witness_mechanism_ne"
+to = [
+  "SE.OperationalIdentity.DivergenceWitness",
+  "SE.OperationalIdentity.Surface.mechanism_ne_of_not_sameTreatment",
+]
+relation = "depends_on"
+
+[trace.faithful_to_record_depends_on_record_surface]
+order = 10
+id = "faithful_to_record_depends_on_record_surface"
+from = "SE.OperationalIdentity.Declared.faithfulTo_record_iff"
+to = [
+  "SE.OperationalIdentity.Declared.FaithfulTo",
+  "SE.OperationalIdentity.Surface.record",
+  "SE.OperationalIdentity.Surface.record_sameTreatment_iff",
+]
+relation = "depends_on"
+
+# ============================================================
+# === FAITHFULNESS OVER GENERATED IDENTITY ===
+# ============================================================
+
+[trace.faithful_generated_depends_on_generated]
+order = 11
+id = "faithful_generated_depends_on_generated"
+from = "SE.OperationalIdentity.faithful_generated_iff_generators"
+to = [
+  "SE.Persistence.Generated",
+  "SE.Persistence.Generated.le_of_equivalence",
+  "SE.OperationalIdentity.Faithful",
+]
+relation = "depends_on"
+
+[trace.faithful_generated_depends_on_consistent]
+order = 12
+id = "faithful_generated_depends_on_consistent"
+from = "SE.OperationalIdentity.faithful_generated_iff_consistent"
+to = [
+  "SE.Persistence.Generated",
+  "SE.Persistence.Consistent",
+  "SE.OperationalIdentity.Faithful",
+]
+relation = "depends_on"
+
+[trace.surface_faithful_generated_depends_on_separated_by]
+order = 13
+id = "surface_faithful_generated_depends_on_separated_by"
+from = "SE.OperationalIdentity.Surface.faithful_generated_iff_consistent"
+to = [
+  "SE.OperationalIdentity.faithful_generated_iff_consistent",
+  "SE.Persistence.Consistent",
+  "SE.Persistence.SeparatedBy",
+  "SE.OperationalIdentity.Surface.signature",
+]
+relation = "depends_on"
+
+[trace.faithful_to_classification_depends_on_presentation_sound]
+order = 14
+id = "faithful_to_classification_depends_on_presentation_sound"
+from = "SE.OperationalIdentity.faithfulTo_ofClassification_iff_presentationSound"
+to = [
+  "SE.Persistence.Classification.PresentationSound",
+  "SE.OperationalIdentity.Declared.ofClassification",
+  "SE.OperationalIdentity.Declared.FaithfulTo",
+]
+relation = "depends_on"
+
+[trace.faithful_to_licence_depends_on_step_relation]
+order = 15
+id = "faithful_to_licence_depends_on_step_relation"
+from = "SE.OperationalIdentity.faithfulTo_ofLicence_iff_steps"
+to = [
+  "SE.Persistence.Licence.stepRel",
+  "SE.OperationalIdentity.faithful_generated_iff_generators",
+  "SE.OperationalIdentity.Declared.ofLicence",
+]
+relation = "depends_on"
+
+[trace.licensed_step_divergence_depends_on_step_characterization]
+order = 16
+id = "licensed_step_divergence_depends_on_step_characterization"
+from = "SE.OperationalIdentity.exists_licensed_step_divergence"
+to = [
+  "SE.OperationalIdentity.faithfulTo_ofLicence_iff_steps",
+  "SE.OperationalIdentity.Surface.mechanism_ne_of_not_sameTreatment",
+]
+relation = "depends_on"
+
+[trace.faithful_generated_anti_mono_depends_on_generated_mono]
+order = 17
+id = "faithful_generated_anti_mono_depends_on_generated_mono"
+from = "SE.OperationalIdentity.faithful_generated_anti_mono"
+to = [
+  "SE.Persistence.Generated.mono",
+  "SE.OperationalIdentity.Faithful",
+]
+relation = "depends_on"
+
+# ============================================================
+# === COMPOSITION OVER EXAMINED SURFACES ===
+# ============================================================
+
+[trace.faithful_store_depends_on_store_treatment]
+order = 18
+id = "faithful_store_depends_on_store_treatment"
+from = "SE.OperationalIdentity.faithful_store_iff"
+to = [
+  "SE.OperationalIdentity.StoreTreatment",
+  "SE.OperationalIdentity.Faithful",
+]
+relation = "depends_on"
+
+[trace.exists_witness_store_depends_on_faithful_store]
+order = 19
+id = "exists_witness_store_depends_on_faithful_store"
+from = "SE.OperationalIdentity.exists_witness_store_iff"
+to = [
+  "SE.OperationalIdentity.faithful_store_iff",
+  "SE.OperationalIdentity.not_faithful_iff_exists_witness",
+  "SE.OperationalIdentity.DivergenceWitness",
+]
+relation = "depends_on"
+
+[trace.faithful_licence_store_depends_on_step_characterization]
+order = 20
+id = "faithful_licence_store_depends_on_step_characterization"
+from = "SE.OperationalIdentity.faithful_ofLicence_store_iff_steps"
+to = [
+  "SE.OperationalIdentity.faithful_store_iff",
+  "SE.OperationalIdentity.faithfulTo_ofLicence_iff_steps",
+]
+relation = "depends_on"
+
+# ============================================================
+# === POSITION RELATIVE TO A SUPPLIED ALTERNATIVE ===
+# ============================================================
+
+[trace.position_exactly_one_depends_on_rel_position]
+order = 21
+id = "position_exactly_one_depends_on_rel_position"
+from = "SE.OperationalIdentity.position_exactlyOne"
+to = [
+  "SE.OperationalIdentity.relPosition_exactlyOne",
+  "SE.OperationalIdentity.Restrict",
+  "SE.OperationalIdentity.Aligned",
+  "SE.OperationalIdentity.SubSibling",
+  "SE.OperationalIdentity.SuperSibling",
+  "SE.OperationalIdentity.SiblingIncomparable",
+]
+relation = "depends_on"
+
+[trace.substitution_aligned_depends_on_aligned]
+order = 22
+id = "substitution_aligned_depends_on_aligned"
+from = "SE.OperationalIdentity.Substitution.aligned"
+to = [
+  "SE.OperationalIdentity.Substitution",
+  "SE.OperationalIdentity.Aligned",
+]
+relation = "depends_on"
+
+[trace.substitution_witness_depends_on_faithful]
+order = 23
+id = "substitution_witness_depends_on_faithful"
+from = "SE.OperationalIdentity.Substitution.exists_witness"
+to = [
+  "SE.OperationalIdentity.Substitution",
+  "SE.OperationalIdentity.Faithful",
+  "SE.OperationalIdentity.DivergenceWitness",
+  "SE.OperationalIdentity.not_faithful_iff_exists_witness",
+]
+relation = "depends_on"
+
+# ============================================================
+# === FINITE FAITHFULNESS CHECK ===
+# ============================================================
+
+[trace.faithful_check_depends_on_faithful]
+order = 24
+id = "faithful_check_depends_on_faithful"
+from = "SE.OperationalIdentity.faithfulCheck_eq_true_iff"
+to = [
+  "SE.OperationalIdentity.faithfulCheck",
+  "SE.OperationalIdentity.Faithful",
+]
+relation = "depends_on"
+
+[trace.find_witness_depends_on_faithful]
+order = 25
+id = "find_witness_depends_on_faithful"
+from = "SE.OperationalIdentity.findWitness_eq_none_iff"
+to = [
+  "SE.OperationalIdentity.findWitness",
+  "SE.OperationalIdentity.Faithful",
+]
+relation = "depends_on"
+
+# ============================================================
+# === AUDIT VERDICT ===
+# ============================================================
+
+[trace.audit_pass_depends_on_faithful_check]
+order = 26
+id = "audit_pass_depends_on_faithful_check"
+from = "SE.OperationalIdentity.audit_eq_pass_iff"
+to = [
+  "SE.OperationalIdentity.audit",
+  "SE.OperationalIdentity.faithfulCheck_eq_true_iff",
+  "SE.OperationalIdentity.Faithful",
+]
+relation = "depends_on"
+
+[trace.audit_fail_depends_on_witness]
+order = 27
+id = "audit_fail_depends_on_witness"
+from = "SE.OperationalIdentity.audit_eq_fail_iff"
+to = [
+  "SE.OperationalIdentity.audit",
+  "SE.OperationalIdentity.faithfulCheck_eq_true_iff",
+  "SE.OperationalIdentity.faithful_iff_not_exists_witness",
+  "SE.OperationalIdentity.not_faithful_iff_exists_witness",
+  "SE.OperationalIdentity.DivergenceWitness",
+]
+relation = "depends_on"

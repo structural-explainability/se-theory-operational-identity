@@ -1,347 +1,152 @@
 # SE Theory: Operational Identity
 
-> Lean 4 formalization of the identity regimes of Structural Explainability.
+> Lean 4 formalization of the Operational Identity layer of
+> Structural Explainability theory.
 
-This repository defines the six canonical identity regimes and the
-derived regime-profile structure over admissible neutral substrates.
+Record systems may declare when two records should be treated as referring
+to the same thing, while their implementations may behave differently.
 
-It does not define substrate primitives, persistence behavior,
-domain semantics, or operational validation.
+This repository formalizes how to compare declared identity relations with
+identity-relevant behavior induced by examined implementation mechanisms.
+It studies when implementations respect declared rules of sameness,
+when they introduce distinctions those rules do not make,
+and when the available evidence is insufficient to decide.
 
-## Boundary
+Lean source files under `SE/` are authoritative for formal definitions,
+predicates, assumptions, theorems, and proof obligations.
 
-This documentation is non-authoritative.
-All formal definitions, invariants, and theorems are defined exclusively
-in Lean source files under `IdentityRegimes/`.
+- [GitHub Repository](https://github.com/structural-explainability/se-theory-operational-identity)
+- [Paper: Operational Identity (arXiv:2607.20729)](https://arxiv.org/abs/2607.20729)
+- [Persistence Theory](https://github.com/structural-explainability/se-theory-persistence)
+- [SE-210 Finite-Core Verification](https://github.com/structural-explainability/se-verification-operational-identity)
 
-If documentation and Lean diverge, **Lean is correct**.
+## Operational Identity
 
-## Purpose
+Operational Identity distinguishes what a record system declares about
+sameness from how its implementation actually treats records.
 
-The identity regimes establish the **structure of identity binding**
-over admissible substrates.
+A declared identity relation specifies which records are considered
+the same under a supplied identity criterion.
 
-They answer:
+An implementation may assign identifiers, resolve references, select
+identity rules, or determine whether a record continues across a change.
+These identity-relevant behaviors can induce an operational equivalence
+relation over the examined records.
 
-- What kinds of identity bindings are permitted?
-- What structural roles do identities play?
-- What requirements govern valid regime application?
-- How are regime profiles derived from regimes?
+The theory compares the declared and operational relations.
 
-They do not define the substrate on which they operate.
+An implementation surface is **faithful** when it does not distinguish
+records that the declared relation treats as the same.
+
+A **divergence witness** identifies a pair of records that the
+declaration relates but the examined implementation surface separates.
+
+These judgments are relative to the supplied declaration, the examined
+domain, and the identified implementation behavior.
+
+The theory does not establish whether the declared identity criterion
+correctly identifies its intended referents. Nor does it certify that
+every identity-relevant mechanism or use in an implementation has been
+observed.
+
+## Theory Structure
+
+```mermaid
+flowchart TB
+    subgraph L1["Declared identity"]
+        A["Supplied identity relation"]
+        B["Explicit assumptions and warrants"]
+    end
+
+    subgraph L2["Implementation behavior"]
+        C["Identified implementation mechanisms"]
+        D["Identity-relevant uses"]
+        E["Operational treatment signatures"]
+    end
+
+    subgraph L3["Derived relations"]
+        F["Declared equivalence"]
+        G["Operational equivalence"]
+    end
+
+    subgraph L4["Structural comparison"]
+        H["Faithfulness"]
+        I["Divergence witnesses"]
+        J["Conditional positioning relative to alternative identity criteria"]
+    end
+
+    subgraph L5["Audit interpretation"]
+        K["Pass, fail, or indeterminate"]
+        M["Scope and evidence limitations"]
+    end
+
+    A --> F
+    B --> F
+    C --> D
+    D --> E
+    E --> G
+
+    F --> H
+    G --> H
+    H --> I
+    H --> J
+    H --> K
+
+    B --> M
+    C --> M
+    D --> M
+    M --> K
+```
+
+The diagram summarizes the intended conceptual structure of the theory.
+Arrows indicate relationships among definitions and audit inputs,
+not logical implications or claims that all results have been proved.
+
+Formal results establish mathematical consequences of supplied relations
+and assumptions. Their application to actual record systems requires
+independent justification of the identity criteria, implementation
+observations, and audit boundaries.
+
+## Relationship to Other Theories
+
+Operational Identity builds on Persistence theory, which supplies
+foundational identity relations and commitment reasoning.
+
+Operational Identity does not redefine persistence. Its responsibility
+is to characterize relationships between declared identity and
+identity-relevant treatment induced by implementations.
+
+Other Structural Explainability theories may supply identity criteria,
+transformation interpretations, or referential judgments through
+separately justified connections.
+
+The general audit does not require a particular identity-regime
+inventory, transformation-classification matrix, or sibling relation.
+
+## Scientific Status
+
+The theory is under initial development.
+
+Mathematical correctness, scientific adequacy, and theoretical
+contribution are evaluated separately.
+
+Successful Lean verification establishes that formal results follow
+from their stated assumptions. It does not establish that those
+assumptions are scientifically adequate for a particular record system.
+
+Any unresolved connection between formal identity relations and
+real-world referents remains an explicit scientific obligation.
 
 ## Scope
 
-### Includes
+Repository scope is defined in `SE_MANIFEST.toml`.
 
-- Six canonical identity regimes
-- Regime requirement structure
-- Derived regime-profile structure (nine profiles)
-- Profile-generating axes:
-  - identity basis
-  - split transformation
-- Admissibility conditions for regime application over neutral substrates
-- Necessity and sufficiency theorem structure
-- Machine-checked Lean theorems
+## Exclusions
 
-### Excludes
+Repository exclusions are defined in `SE_MANIFEST.toml`.
 
-- Neutral substrate primitives
-- Substrate well-formedness
-- Substrate separation constraints
-- Persistence behavior
-- Mapping semantics
-- Domain-specific data or examples
-- Operational validation logic
-- Runtime systems
+## Import
 
-## Basic
+Downstream Lean projects should import the public surface:
 
-Identity regimes are defined over neutral substrates imported from
-`se-theory-neutral-substrate`.
-
-The basic vocabulary introduces:
-
-- `Regime`: a typeclass parameterized over an admissible neutral substrate
-- `RegimeKind`: an enumeration of the six canonical regime identifiers
-- `RegimeBinding`: the relationship between a regime and a locus
-
-No regime semantics are defined at this layer.
-`Basic` provides names and structure only.
-
-Formal definitions: `IdentityRegimes.Basic`
-
-## Structure
-
-The root file provides a single import surface:
-
-```lean
-import IdentityRegimes
-```
-
-Internal module paths are not part of the public interface.
-The dependency order is:
-
-```text
-Basic > Regimes > Requirements > Profiles > Transformations
-> Admissibility > Embedding > LowerBound > NonCollapse > Theorems
-```
-
-## Regimes
-
-The six canonical identity regimes are:
-
-| Regime | Role                                                                 |
-| ------ | -------------------------------------------------------------------- |
-| OBL    | Obligatory identity — binding is required                            |
-| NOR    | Normal identity — binding follows default structural rules           |
-| OCC    | Occasional identity — binding is conditionally present               |
-| CTX    | Contextual identity — binding depends on structural context          |
-| REC    | Recurrent identity — binding repeats across structural positions     |
-| ENR    | Enriched identity — binding carries additional structural annotation |
-
-Regimes are canonical and not derived from one another.
-They define identity-binding structure, not implementation behavior.
-
-Formal definitions: `IdentityRegimes.Regimes`
-
-## Requirements
-
-Each regime imposes structural requirements on the substrate loci
-to which it may be applied.
-
-Requirements are organized as:
-
-- **Necessary conditions**: what must hold for a regime binding to be valid
-- **Sufficient conditions**: what guarantees a regime binding is admissible
-- **Exclusion conditions**: what disqualifies a locus from a given regime
-
-Requirements are regime-specific and non-overlapping by construction.
-
-Formal definitions: `IdentityRegimes.Requirements`
-
-## Profiles
-
-Regime profiles refine regimes along two axes of derivation.
-Profiles are not additional regimes; they are derived structure.
-
-The nine canonical profiles are:
-
-| Profile | Parent Regime |
-| ------- | ------------- |
-| OBL     | OBL           |
-| OCC     | OCC           |
-| REC     | REC           |
-| ENR_L   | ENR           |
-| ENR_I   | ENR           |
-| CTX_E   | CTX           |
-| CTX_S   | CTX           |
-| NOR_C   | NOR           |
-| NOR_S   | NOR           |
-
-Profiles are finite, canonical, and exhaustive over the derivation axes.
-
-Formal definitions: `IdentityRegimes.Profiles`
-
-## Transformations
-
-Profiles are generated by two derivation axes applied to regimes:
-
-**Identity basis axis:**
-
-- single, content, structure, extension, locus, instrument
-
-**Split transformation axis:**
-
-- none (regime remains atomic)
-- RF (refinement split)
-- AD (decomposition split)
-- BF (branching split)
-
-A regime combined with an applicable split transformation yields
-a profile. Not all combinations are valid; validity is governed
-by regime requirements.
-
-Formal definitions: `IdentityRegimes.Transformations`
-
-## Admissibility
-
-A regime may only be applied over a substrate that is admissible
-in the sense defined by `se-theory-neutral-substrate`.
-
-This repository assumes admissibility as a precondition and does not
-redefine it. The admissibility layer here establishes:
-
-- that each regime binding is compatible with substrate admissibility
-- that regime application does not violate substrate separation
-
-Formal definitions: `IdentityRegimes.Admissibility`
-
-## Embedding
-
-The embedding layer establishes how identity regimes are positioned
-over admissible neutral substrates.
-
-An embedding is a structure-preserving map from a regime's requirement
-structure into the locus space of a given substrate.
-
-Key properties:
-
-- Embeddings are injective over loci
-- Embeddings preserve regime requirements
-- No two regimes produce the same embedding over the same substrate
-
-Formal definitions: `IdentityRegimes.Embedding`
-
-## LowerBound
-
-The lower bound results establish the minimum structural complexity
-required for a substrate to support a given regime.
-
-For each regime, a lower bound theorem states:
-
-- the minimum number of distinct loci required
-- the minimum requirement conditions that must be satisfied
-
-Lower bounds are tight: the witness constructions in `Witness`
-achieve them exactly.
-
-Formal definitions: `IdentityRegimes.LowerBound`
-
-## NonCollapse
-
-The non-collapse results establish that the six regimes are
-structurally distinct and cannot be identified with one another.
-
-For each pair of regimes R₁, R₂:
-
-- there exists a substrate and locus configuration that satisfies R₁ but not R₂
-- the requirements of R₁ and R₂ are not equivalent
-
-Non-collapse is necessary to establish that the regime enumeration
-is non-redundant and that profiles derived from distinct regimes
-remain distinct.
-
-Formal definitions: `IdentityRegimes.NonCollapse`
-
-## Theorems
-
-Machine-checked theorems established at this layer:
-
-- **Regime requirements are satisfiable**: for each regime, at least one
-  admissible substrate configuration satisfies its requirements
-- **Profiles are derivable**: every canonical profile is reachable via
-  the transformation axes from its parent regime
-- **Non-collapse**: no two regimes are requirement-equivalent
-- **Lower bounds are tight**: witness constructions achieve the stated
-  lower bounds exactly
-- **Embedding injectivity**: distinct loci map to distinct positions
-  under any valid regime embedding
-
-Formal proofs: `IdentityRegimes.Theorems`
-
-## Witness
-
-Minimal concrete witnesses demonstrating satisfiability of each regime:
-
-Each witness is a pair `(S, L)` where `S` is an admissible neutral
-substrate and `L` is a locus configuration satisfying the regime's
-requirements. Witnesses are constructed to achieve lower bounds.
-
-Witnesses establish that all six regimes and all nine profiles have
-non-vacuous definitions.
-
-Formal definitions: `IdentityRegimes.Witness`
-
-## ReferenceRequirements
-
-Cross-reference index of regime requirements and the theorems that
-depend on them.
-
-This section provides traceability between:
-
-- requirement definitions in `IdentityRegimes.Requirements`
-- admissibility conditions in `IdentityRegimes.Admissibility`
-- theorems in `IdentityRegimes.Theorems` that cite those requirements
-
-Formal definitions: `IdentityRegimes.ReferenceRequirements`
-
-## Design Principles
-
-### Regime Primacy
-
-The six regimes are canonical and not derived:
-
-- OBL
-- NOR
-- OCC
-- CTX
-- REC
-- ENR
-
-They define identity-binding structure, not implementation.
-
-### Profiles as Derived Structure
-
-Regime profiles refine regimes.
-
-- Profiles are not additional regimes
-- Profiles are derived via explicit axes
-- Profiles are canonical and finite (nine)
-
-### Axes of Derivation
-
-Profiles are generated by two dimensions:
-
-- **Identity basis**: single, content, structure, extension, locus, instrument
-- **Split transformation**: none, RF, AD, BF
-
-### Separation
-
-Identity regime definitions remain independent from:
-
-- substrate construction
-- persistence behavior
-- interpretation
-- operational concerns
-
-### Lean as Authority
-
-All correctness is expressed and verified in Lean.
-
-No external system defines or validates theory semantics.
-
-## Relationship to Other Theory Repositories
-
-### se-theory-neutral-substrate
-
-Defines the admissible structural substrate.
-
-This repository imports it.
-
-### se-theory-structural-explainability
-
-Integrates substrate and regimes into cross-cutting theorems.
-
-Imports both this repository and the neutral substrate repository.
-
-## Build
-
-```shell
-elan self update
-lake update
-lake build
-```
-
-## Tooling
-
-Python tooling is used for:
-
-- documentation generation (Zensical)
-- repository hygiene (pre-commit, ruff)
-
-Python tooling must not:
-
-- define correctness
-- validate theory semantics
-- replace Lean proofs
+`import SE.OperationalIdentity`

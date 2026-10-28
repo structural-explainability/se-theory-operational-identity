@@ -1,0 +1,120 @@
+{
+  "schema": "se-theory-operational-identity-predicate-registry",
+  "source": "se-theory-operational-identity",
+  "namespace": "se.operational_identity",
+  "artifact": "operational-identity-predicate-registry",
+  "reference_artifact": "operational-identity-predicates",
+  "reference_path": "reference/operational-identity-predicates.toml",
+  "predicate": [
+    {
+      "order": 1,
+      "id": "SurfaceSameTreatment",
+      "cite_id": "OI.DEF.SAME_TREATMENT",
+      "name": "Surface same treatment",
+      "lean_symbol": "SE.OperationalIdentity.Surface.SameTreatment",
+      "lean_kind": "def",
+      "source_module": "SE.OperationalIdentity.Surface",
+      "description": "The surface gives two records the same identity-relevant treatment."
+    },
+    {
+      "order": 2,
+      "id": "Faithful",
+      "cite_id": "OI.DEF.FAITHFUL",
+      "name": "Faithful",
+      "lean_symbol": "SE.OperationalIdentity.Faithful",
+      "lean_kind": "def",
+      "source_module": "SE.OperationalIdentity.Faithfulness",
+      "description": "`O` never separates a pair that `D` relates: the declared relation is contained in the treatment relation."
+    },
+    {
+      "order": 3,
+      "id": "DivergenceWitness",
+      "cite_id": "OI.DEF.DIVERGENCE_WITNESS",
+      "name": "Divergence witness",
+      "lean_symbol": "SE.OperationalIdentity.DivergenceWitness",
+      "lean_kind": "def",
+      "source_module": "SE.OperationalIdentity.Faithfulness",
+      "description": "A pair that `D` relates and `O` separates."
+    },
+    {
+      "order": 4,
+      "id": "DeclaredFaithfulTo",
+      "cite_id": "OI.DEF.FAITHFUL_TO",
+      "name": "Declared faithful to a surface",
+      "lean_symbol": "SE.OperationalIdentity.Declared.FaithfulTo",
+      "lean_kind": "def",
+      "source_module": "SE.OperationalIdentity.Faithfulness",
+      "description": "A surface is faithful to a declared relation when the declaration is contained in the surface's treatment relation."
+    },
+    {
+      "order": 5,
+      "id": "StoreTreatment",
+      "cite_id": "OI.DEF.STORE_TREATMENT",
+      "name": "Store treatment",
+      "lean_symbol": "SE.OperationalIdentity.StoreTreatment",
+      "lean_kind": "def",
+      "source_module": "SE.OperationalIdentity.Composition",
+      "description": "The store treats two records the same when every examined surface does."
+    },
+    {
+      "order": 6,
+      "id": "Restrict",
+      "cite_id": "OI.DEF.RESTRICT",
+      "name": "Restriction to the declared classes",
+      "lean_symbol": "SE.OperationalIdentity.Restrict",
+      "lean_kind": "def",
+      "source_module": "SE.OperationalIdentity.Position",
+      "description": "A relation restricted to the pairs a declared relation relates."
+    },
+    {
+      "order": 7,
+      "id": "Aligned",
+      "cite_id": "OI.DEF.ALIGNED",
+      "name": "Aligned",
+      "lean_symbol": "SE.OperationalIdentity.Aligned",
+      "lean_kind": "def",
+      "source_module": "SE.OperationalIdentity.Position",
+      "description": "Inside the declared classes, `O` splits exactly as `S` does."
+    },
+    {
+      "order": 8,
+      "id": "SubSibling",
+      "cite_id": "OI.DEF.SUB_SIBLING",
+      "name": "Sub-sibling",
+      "lean_symbol": "SE.OperationalIdentity.SubSibling",
+      "lean_kind": "def",
+      "source_module": "SE.OperationalIdentity.Position",
+      "description": "Inside the declared classes, `O` splits strictly more finely than `S`."
+    },
+    {
+      "order": 9,
+      "id": "SuperSibling",
+      "cite_id": "OI.DEF.SUPER_SIBLING",
+      "name": "Super-sibling",
+      "lean_symbol": "SE.OperationalIdentity.SuperSibling",
+      "lean_kind": "def",
+      "source_module": "SE.OperationalIdentity.Position",
+      "description": "Inside the declared classes, `O` makes some but not all of the distinctions `S` makes."
+    },
+    {
+      "order": 10,
+      "id": "SiblingIncomparable",
+      "cite_id": "OI.DEF.SIBLING_INCOMPARABLE",
+      "name": "Sibling-incomparable",
+      "lean_symbol": "SE.OperationalIdentity.SiblingIncomparable",
+      "lean_kind": "def",
+      "source_module": "SE.OperationalIdentity.Position",
+      "description": "Inside the declared classes, `O` and `S` each make a distinction the other lacks."
+    },
+    {
+      "order": 11,
+      "id": "Substitution",
+      "cite_id": "OI.DEF.SUBSTITUTION",
+      "name": "Substitution",
+      "lean_symbol": "SE.OperationalIdentity.Substitution",
+      "lean_kind": "def",
+      "source_module": "SE.OperationalIdentity.Position",
+      "description": "The treatment relation equals the supplied alternative everywhere."
+    }
+  ]
+}

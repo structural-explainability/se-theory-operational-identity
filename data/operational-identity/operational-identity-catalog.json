@@ -1,0 +1,46 @@
+{
+  "schema": "se-theory-operational-identity-catalog",
+  "source": "se-theory-operational-identity",
+  "namespace": "se.operational_identity",
+  "artifact": "operational-identity-catalog",
+  "reference_paths": [
+    "reference/operational-identity-types.toml",
+    "reference/operational-identity-vocabulary.toml",
+    "reference/operational-identity-predicates.toml",
+    "reference/operational-identity-theorems.toml",
+    "reference/dependency-registry.toml",
+    "reference/traceability-registry.toml"
+  ],
+  "reference_artifacts": [
+    {
+      "id": "type",
+      "kind": "type",
+      "path": "reference/operational-identity-types.toml"
+    },
+    {
+      "id": "vocabulary",
+      "kind": "vocabulary",
+      "path": "reference/operational-identity-vocabulary.toml"
+    },
+    {
+      "id": "predicate",
+      "kind": "predicate",
+      "path": "reference/operational-identity-predicates.toml"
+    },
+    {
+      "id": "theorem",
+      "kind": "theorem",
+      "path": "reference/operational-identity-theorems.toml"
+    },
+    {
+      "id": "dependency",
+      "kind": "dependency",
+      "path": "reference/dependency-registry.toml"
+    },
+    {
+      "id": "traceability",
+      "kind": "traceability",
+      "path": "reference/traceability-registry.toml"
+    }
+  ]
+}

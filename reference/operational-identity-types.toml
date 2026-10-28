@@ -1,0 +1,42 @@
+# ============================================================
+# Operational Identity Types
+# se-theory-operational-identity
+# ============================================================
+# Public Lean types for the Operational Identity theory.
+
+schema = "se-type-registry-1"
+kind = "type"
+repo = "se-theory-operational-identity"
+surface_module = "SE.OperationalIdentity"
+namespace = "SE.OperationalIdentity"
+
+[type.Declared]
+order = 1
+id = "Declared"
+cite_id = "OI.TYPE.DECLARED"
+name = "Declared"
+lean_symbol = "SE.OperationalIdentity.Declared"
+lean_kind = "structure"
+source_module = "SE.OperationalIdentity.Declared"
+description = "A declared identity relation over a carrier R, supplied as an input to the audit. rel r s means the declaration treats r and s as the same. equivalence is the proof that rel is an equivalence relation. How the declaration is derived is justified elsewhere: Declared.ofGenerators, Declared.ofLicence, and Declared.ofClassification build it with Persistence."
+
+[type.Surface]
+order = 2
+id = "Surface"
+cite_id = "OI.TYPE.SURFACE"
+name = "Surface"
+lean_symbol = "SE.OperationalIdentity.Surface"
+lean_kind = "structure"
+source_module = "SE.OperationalIdentity.Surface"
+description = "An implementation surface over records R with outcomes O. Value is the type of mechanism values. mechanism gives each record its value. uses is the list of identity-relevant uses identified for the mechanism. controlled is surface control: each use depends on a record only through its mechanism value. Whether uses lists every identity-relevant use is a disclosure claim that Lean does not discharge."
+
+[type.Verdict]
+order = 3
+id = "Verdict"
+cite_id = "OI.TYPE.VERDICT"
+name = "Verdict"
+lean_symbol = "SE.OperationalIdentity.Verdict"
+lean_kind = "inductive"
+source_module = "SE.OperationalIdentity.Verdict"
+description = "The three audit outcomes. pass: the audit's assumptions are established and faithfulness holds. fail: they are established and a divergence witness exists. indeterminate: they are not established, so no conclusion is justified. Indeterminate is never a pass."
+constructors = ["pass", "fail", "indeterminate"]

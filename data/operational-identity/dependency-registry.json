@@ -1,0 +1,29 @@
+{
+  "schema": "se-theory-operational-identity-dependency-registry",
+  "source": "se-theory-operational-identity",
+  "namespace": "se.operational_identity",
+  "artifact": "dependency-registry",
+  "reference_artifact": "dependency-registry",
+  "reference_path": "reference/dependency-registry.toml",
+  "dependency": [
+    {
+      "order": 1,
+      "id": "se-theory-persistence",
+      "target_repo": "se-theory-persistence",
+      "dependency_kind": "lean-library",
+      "required": true,
+      "allowed": true,
+      "revision": "v0.6.0",
+      "description": "Provides the generated identity relation, licences, classifications, and consistency used to state faithfulness over generated identity."
+    },
+    {
+      "order": 2,
+      "id": "se-theory-reference-kit",
+      "target_repo": "se-theory-reference-kit",
+      "dependency_kind": "reference-tooling",
+      "required": true,
+      "allowed": true,
+      "description": "Validates, exports, catalogs, and inspects repository-owned theory reference artifacts."
+    }
+  ]
+}

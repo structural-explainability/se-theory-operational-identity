@@ -7,15 +7,14 @@
 # Run with:
 # lake build
 # lake test
-# lake lint
 
 # ============================================================
 # === PROJECT IDENTITY ===
 # ============================================================
 
 name = "se-theory-operational-identity"
-version = "0.4.0"
-license = "MIT"
+version = "0.1.0"
+license = "Apache-2.0"
 
 # ============================================================
 # === BUILD SURFACE ===
@@ -24,53 +23,35 @@ license = "MIT"
 
 defaultTargets = ["SE.OperationalIdentity"]
 testDriver = "SETest"
-lintDriver = "SELint"
 
 # ============================================================
 # === DEPENDENCIES ===
 # ============================================================
 
 [[require]]
-name = "se-theory-neutral-substrate"
-git = "https://github.com/structural-explainability/se-theory-neutral-substrate"
-rev = "v0.11.0"
-
-[[require]]
-name = "se-theory-transformation"
-git = "https://github.com/structural-explainability/se-theory-transformation"
-rev = "v0.5.1"
-
-# ============================================================
-# === LEAN OPTIONS ===
-# ============================================================
-
-[leanOptions]
-weak.linter.mathlibStandardSet = true
-weak.linter.flexible = true
-weak.linter.style.header = false
-weak.linter.style.longLine = false
-
-# These linters are included in Mathlib's standard set but do
-# not currently operate correctly in downstream projects.
-weak.linter.pythonStyle = false
-weak.linter.checkInitImports = false
-weak.linter.allScriptsDocumented = false
-
-# This linter is not extensible for Unicode outside Mathlib's set.
-weak.linter.unicodeLinter = false
+name = "se-theory-persistence"
+git = "https://github.com/structural-explainability/se-theory-persistence"
+rev = "v0.6.0"
 
 # ============================================================
 # === PUBLIC LIBRARY ===
 # ============================================================
-# The public root namespace.
-# Public modules are organized beneath this namespace.
+# The library downstream packages import. It must claim only the module
+# family owned by this package. Other packages own other SE.* families.
+#
+# Do not claim the shared top-level module "SE". Multiple theory packages
+# coexist in the same dependency graph, so each library must own only its
+# namespaced family (for example SE.Persistence or SE.Transformation).
+#
+# Glob forms:
+#   "A.B"    only module A.B
+#   "A.B.*"  A.B and all its submodules
+#   "A.B.+"  all submodules of A.B, but not A.B itself
 
 [[lean_lib]]
 name = "SE.OperationalIdentity"
 roots = ["SE.OperationalIdentity"]
-globs = ["SE", "SE.OperationalIdentity.*"]
-# Lake supports .* for the named module plus all its submodules.
-
+globs = ["SE.OperationalIdentity.*"]
 
 # ============================================================
 # === TEST LIBRARY ===
@@ -81,14 +62,3 @@ globs = ["SE", "SE.OperationalIdentity.*"]
 name = "SETest"
 roots = ["SETest.OperationalIdentity"]
 globs = ["SETest", "SETest.OperationalIdentity.*"]
-leanOptions = { weak.linter.style.header = false }
-
-
-# ============================================================
-# === LINT DRIVER ===
-# ============================================================
-
-[[lean_exe]]
-name = "SELint"
-root = "SELint"
-leanOptions = { Elab.inServer = true }

@@ -3,8 +3,9 @@
 # ============================================================
 # Theory reference configuration.
 #
-# WHY: The theory repository owns Lean source, reference TOML, and exported
-# JSON artifacts. The reusable kit owns validation, export, catalog, scaffold,
+# WHY: The theory repository owns Lean source, reference TOML,
+# and exported JSON artifacts.
+# The reusable kit owns validation, export, catalog, scaffold,
 # and inspection machinery.
 
 schema = "se-theory-reference"
@@ -15,25 +16,28 @@ schema_version = "0.1.0"
 [repository]
 organization = "structural-explainability"
 name = "se-theory-operational-identity"
-theory = "identity-regimes"
-description = "Identity regimes theory repository for Structural Explainability."
+theory = "operational-identity"
+description = "Operational identity theory repository for Structural Explainability."
 
 # === Lean Public Surface ===
 
 [lean]
-root_module = "SE.IdentityRegimes"
+root_module = "SE"
+
 public_modules = [
-  "SE.IdentityRegimes",
-  "SE.IdentityRegimes.Core",
-  "SE.IdentityRegimes.Spec",
-  "SE.IdentityRegimes.Surface",
+    "SE",
+    "SE.OperationalIdentity",
+    "SE.OperationalIdentity.Composition",
+    "SE.OperationalIdentity.Declared",
+    "SE.OperationalIdentity.Faithfulness",
+    "SE.OperationalIdentity.Finite",
+    "SE.OperationalIdentity.Licensed",
+    "SE.OperationalIdentity.Position",
+    "SE.OperationalIdentity.Surface",
+    "SE.OperationalIdentity.Verdict",
 ]
 
-test_modules = [
-  "TestAll",
-  "TestBasic",
-  "TestRegime",
-]
+test_modules = ["SETest"]
 
 # === Reference Artifacts ===
 
@@ -43,26 +47,30 @@ root = "reference"
 # === Exported Machine Artifacts ===
 
 [export]
-root = "data/identity-regimes"
+root = "data/operational-identity"
 
 # === Surface-Kind Mapping ===
+#
+# Operational identity has no axioms or requirements, so those kinds
+# are not registered.
 
 [surface_kinds]
-axiom = "reference/substrate-axioms.toml"
+type = "reference/operational-identity-types.toml"
+vocabulary = "reference/operational-identity-vocabulary.toml"
+predicate = "reference/operational-identity-predicates.toml"
+theorem = "reference/operational-identity-theorems.toml"
 dependency = "reference/dependency-registry.toml"
-predicate = "reference/substrate-predicates.toml"
-requirement = "reference/substrate-requirements.toml"
-theorem = "reference/substrate-theorems.toml"
 traceability = "reference/traceability-registry.toml"
-type = "reference/substrate-types.toml"
 
 # === Export Mapping ===
+#
+# Every JSON artifact below is generated; do not hand-edit data/operational-identity.
 
 [export_map]
-axiom = "data/identity-regimes/substrate-axiom-registry.json"
-catalog = "data/identity-regimes/identity-regimes-catalog.json"
-predicate = "data/identity-regimes/substrate-predicate-registry.json"
-requirement = "data/identity-regimes/substrate-requirement-registry.json"
-theorem = "data/identity-regimes/substrate-theorem-registry.json"
-traceability = "data/identity-regimes/traceability-registry.json"
-type = "data/identity-regimes/substrate-type-registry.json"
+catalog = "data/operational-identity/operational-identity-catalog.json"
+type = "data/operational-identity/operational-identity-type-registry.json"
+vocabulary = "data/operational-identity/operational-identity-vocabulary-registry.json"
+predicate = "data/operational-identity/operational-identity-predicate-registry.json"
+theorem = "data/operational-identity/operational-identity-theorem-registry.json"
+dependency = "data/operational-identity/dependency-registry.json"
+traceability = "data/operational-identity/traceability-registry.json"

@@ -1,0 +1,34 @@
+# ============================================================
+# Dependency Registry
+# se-theory-operational-identity
+# ============================================================
+
+schema = "se-dependency-registry-1"
+kind = "dependency"
+repo = "se-theory-operational-identity"
+
+[meta]
+source = "se-theory-operational-identity"
+namespace = "se.operational_identity"
+artifact = "dependency-registry"
+version = "0.1.0"
+status = "canonical"
+
+[dependency.persistence]
+order = 1
+id = "se-theory-persistence"
+target_repo = "se-theory-persistence"
+dependency_kind = "lean-library"
+required = true
+allowed = true
+revision = "v0.6.0"
+description = "Provides the generated identity relation, licences, classifications, and consistency used to state faithfulness over generated identity."
+
+[dependency.reference_kit]
+order = 2
+id = "se-theory-reference-kit"
+target_repo = "se-theory-reference-kit"
+dependency_kind = "reference-tooling"
+required = true
+allowed = true
+description = "Validates, exports, catalogs, and inspects repository-owned theory reference artifacts."

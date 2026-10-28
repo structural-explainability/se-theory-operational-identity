@@ -1,22 +1,34 @@
-# SE Theory: Operational Identity
+# SE Theory: Neutral Substrate
 
 [![Docs Site](https://img.shields.io/badge/docs-site-blue?logo=github)](https://structural-explainability.github.io/se-theory-operational-identity/)
 [![Repo](https://img.shields.io/badge/repo-GitHub-black?logo=github)](https://github.com/structural-explainability/se-theory-operational-identity)
 [![Tooling](https://img.shields.io/badge/python-3.15%2B-blue?logo=python)](./pyproject.toml)
-[![License](https://img.shields.io/badge/license-MIT-yellow.svg)](./LICENSE)
+[![License](https://img.shields.io/badge/license-Apache--2.0-yellow.svg)](./LICENSE)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21694487.svg)](https://doi.org/10.5281/zenodo.21694487)
 
 [![CI-Lean](https://github.com/structural-explainability/se-theory-operational-identity/actions/workflows/ci-lean.yml/badge.svg?branch=main)](https://github.com/structural-explainability/se-theory-operational-identity/actions/workflows/ci-lean.yml)
 [![CI](https://github.com/structural-explainability/se-theory-operational-identity/actions/workflows/ci-python-zensical.yml/badge.svg?branch=main)](https://github.com/structural-explainability/se-theory-operational-identity/actions/workflows/ci-python-zensical.yml)
-[![Docs](https://github.com/structural-explainability/se-theory-operational-identity/actions/workflows/deploy-zensical.yml/badge.svg?branch=main)](https://github.com/structural-explainability/se-theory-operational-identity/actions/workflows/deploy-zensical.yml)
+[![Docs](https://github.com/structural-explainability/se-theory-operational-identity/actions/workflows/deploy-zensical-lean.yml/badge.svg?branch=main)](https://github.com/structural-explainability/se-theory-operational-identity/actions/workflows/deploy-zensical-lean.yml)
 [![Links](https://github.com/structural-explainability/se-theory-operational-identity/actions/workflows/links.yml/badge.svg?branch=main)](https://github.com/structural-explainability/se-theory-operational-identity/actions/workflows/links.yml)
+[![Dependabot](https://img.shields.io/badge/Dependabot-enabled-brightgreen.svg)](https://github.com/structural-explainability/se-theory-operational-identity/security)
 
-> Lean 4 development of declared and implemented identity comparison.
+> Lean 4 formalization of Operational Identity
+> for Structural Explainability.
 
-This repository formalizes comparison of declared identity relations
-with operational relations induced by examined implementation surfaces,
-including conformance conditions and divergence witnesses.
+Record systems may declare when two records
+should be treated as referring to the same thing,
+while their implementations may behave differently.
+This theory formalizes how to compare declared rules of sameness
+with identity-relevant behavior induced by implementations.
+It provides a mathematical basis for identifying where those rules agree,
+where they diverge, and when the available evidence is insufficient to decide.
 
-For the full documentation, see [`docs/en/index.md`](./docs/en/index.md).
+Scope and exclusions are defined in [SE_MANIFEST.toml](./SE_MANIFEST.toml).
+The Lean source states what is proved and under which assumptions.
+This library states neutrality conditions in the abstract;
+it does not certify any concrete realization,
+which must justify its own referential
+fixing and framework compatibility.
 
 ## Authority
 
@@ -27,90 +39,37 @@ Reference artifacts under `reference/` and generated artifacts under
 `data/` mirror the Lean public surface.
 They do not define theory semantics independently of Lean.
 
+The CI-Lean workflow builds the declared public Lean surface with
+`lake build --wfail`,
+failing on reported warnings, including `sorry`.
+Successful compilation verifies formal declarations against their
+stated assumptions; it does not establish the scientific adequacy
+of those assumptions or interpretations.
+
 ## Import
 
-Downstream Lean projects should import the public surface:
+Import the public theory surface:
 
-```text
-import SE.IdentityRegimes
+```lean
+import SE.OperationalIdentity
 ```
 
-The public import surface is curated in:
+## Developer
 
-```text
-SE.IdentityRegimes.lean
-SE.IdentityRegimes/Surface.lean
-```
+Maintain:
 
-## Scope
+- `scripts/get-basis.ps1` update `$ExpectedItemCount` from the paper
+- `formalization/source/se100-lean-basis.md` - from the paper
+- `lakefile.toml`
+- `lean-toolchain`
+- `reference/theory-reference.toml` - hand-maintained configuration
+- `reference/*.toml` - reference source artifacts
+- Lean source and RR traceability comments (`-- RR.DEFINES`, `-- RR.IMPLEMENTS`) - hand-maintained theory source
 
-This repository covers:
+### Clone and Open Project in VS Code
 
-- six canonical identity regimes,
-- nine canonical regime profile kinds after splits,
-- regime requirement structure,
-- regime-profile structure,
-- admissibility conditions for regime application over neutral substrates,
-- transformation basis and classification structure,
-- split pressure predicates and theorems,
-- pairwise non-collapse proofs,
-- lower-bound and classification-uniqueness theorem structure,
-- regime-typed multigraph structure,
-- representation theorem structure,
-- machine-checked Lean theorems.
-
-## Owns
-
-This repository owns the identity-regime theory layer, including:
-
-- six canonical identity regimes:
-  - OBL
-  - NOR
-  - OCC
-  - CTX
-  - REC
-  - ENR
-- nine canonical regime profile kinds after splits:
-  - OBL
-  - OCC
-  - REC
-  - ENR_L
-  - ENR_I
-  - CTX_E
-  - CTX_S
-  - NOR_C
-  - NOR_S
-- transformations:
-  - RE
-  - AN
-  - RF
-  - AD
-  - RC
-  - RA
-  - SU
-  - BF
-  - PV
-  - SE
-
-## Does not own
-
-This repository does not own:
-
-- neutral substrate primitives; see `se-theory-operational-identity`,
-- path grammar and expressive adequacy,
-- domain mappings,
-- operational validation,
-- runtime systems,
-- contract artifact generation.
-
-## Command Reference
-
-<details>
-<summary>Show command reference</summary>
-
-### In a machine terminal
-
-Open a machine terminal where you want the project:
+Open a machine terminal where you want the project
+and open in VS Code:
 
 ```shell
 git clone https://github.com/structural-explainability/se-theory-operational-identity
@@ -119,68 +78,20 @@ cd se-theory-operational-identity
 code .
 ```
 
-### In a VS Code terminal
+### Setup and Run
 
 Use VS Code Menu:
 View / Command Palette / `Developer: Reload Window` to refresh.
 
 ```shell
-elan self update
-lake update
+.\sit.ps1
+.\rel.ps1
 
-uv self update
-uv python pin 3.15
-uv lock --upgrade
-uv sync --extra dev --extra docs --upgrade
-
-# install git hooks once per clone
-uvx pre-commit install
-
-# build Lean source of truth
-lake build
-lake test
-
-# inspect shared theory-reference command surface
-uv run se-theory-reference --help
-uv run se-theory-reference validate --help
-uv run se-theory-reference scaffold --help
-uv run se-theory-reference export --help
-uv run se-theory-reference catalog --help
-uv run se-theory-reference inspect --help
-
-# validate reference artifacts against the declared Lean public surface
-uv run se-theory-reference validate
-uv run se-theory-reference validate --strict
-
-# scaffold reference artifacts from Lean public declarations
-uv run se-theory-reference scaffold
-uv run se-theory-reference scaffold --dry-run
-uv run se-theory-reference scaffold --overwrite
-
-# regenerate or check generated JSON artifacts from reference TOML
-uv run se-theory-reference export
-uv run se-theory-reference export --check
-
-# build or verify the generated reference catalog
-uv run se-theory-reference catalog
-uv run se-theory-reference catalog --check
-
-# inspect resolved repository configuration and reference declarations
-uv run se-theory-reference inspect
+# shared theory-reference tooling: commands and options
+uvx se-theory-reference-kit@latest --help
 
 # validate SE manifest file
 uvx se-manifest-schema validate-manifest --path SE_MANIFEST.toml --strict
-
-# fix issues
-git add -A
-uvx pre-commit run --all-files
-# repeat if changes were made
-uvx pre-commit run --all-files
-
-# type checks, tests, docs
-uv run python -m pyright
-uv run python -m pytest
-uv run python -m zensical build
 
 # save progress
 git add -A
@@ -188,20 +99,37 @@ git commit -m "update"
 git push -u origin main
 ```
 
-</details>
-
 ## Authority Manifest
 
 [.accountability/surfaces.toml](./.accountability/surfaces.toml)
+
+## Changelog
+
+[CHANGELOG.md](./CHANGELOG.md)
 
 ## Citation
 
 [CITATION.cff](./CITATION.cff)
 
+## Documentation
+
+[Documentation](https://structural-explainability.github.io/se-theory-operational-identity/) -
+descriptive orientation
+
+## Formal Semantics
+
+[Lean](./SE.lean)
+
 ## License
 
-[MIT](./LICENSE)
+[Apache 2.0](./LICENSE)
 
 ## Repository Manifest
 
-[SE_MANIFEST.toml](./SE_MANIFEST.toml)
+[SE_MANIFEST.toml](./SE_MANIFEST.toml) -
+repository semantic ownership/scope
+
+## Reference
+
+[reference/](./reference/) -
+public-surface classification and traceability

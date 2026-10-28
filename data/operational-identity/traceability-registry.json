@@ -1,0 +1,9 @@
+{
+  "schema": "se-theory-operational-identity-traceability-registry",
+  "source": "se-theory-operational-identity",
+  "namespace": "se.operational_identity",
+  "artifact": "traceability-registry",
+  "reference_artifact": "traceability-registry",
+  "reference_path": "reference/traceability-registry.toml",
+  "traceability": []
+}

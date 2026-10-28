@@ -12,8 +12,8 @@ message: "If you use this work, please cite it using the metadata in CITATION.cf
 type: software
 
 title: "SE Theory: Operational Identity"
-version: "0.3.0"
-date-released: "2026-05-02"
+version: "0.1.0"
+date-released: "2026-10-28"
 
 authors:
   - family-names: Case
@@ -24,17 +24,19 @@ authors:
 repository-code: "https://github.com/structural-explainability/se-theory-operational-identity"
 url: "https://github.com/structural-explainability/se-theory-operational-identity"
 
-license: MIT
+license: Apache-2.0
 
 abstract: >
-  Lean 4 development of Operational Identity for Structural Explainability.
-  The theory concerns comparison of a declared identity relation with an
-  operational relation induced by an examined implementation surface.
-  Its intended scope includes conformance conditions, divergence witnesses,
-  and the assumptions needed to interpret audit results. Agreement with a
-  declaration does not independently establish the adequacy of that
-  declaration for its intended referents. Current formal definitions,
-  assumptions, and proved results are specified by the Lean source.
+  Lean 4 formalization of Operational Identity for Structural Explainability.
+  The theory compares declared identity relations with identity-relevant
+  treatment induced by examined implementation mechanisms. It formalizes
+  faithfulness, divergence witnesses, and the conditions under which
+  operational behavior can be compared with declared rules of sameness.
+  The results are relative to explicitly supplied identity criteria,
+  implementation observations, and audit assumptions. Conformance with a
+  declaration does not establish that the declared criterion correctly
+  identifies its intended referents. The Lean source defines the formal
+  assumptions, theorems, and their limitations.
 
 
 keywords:
@@ -43,6 +45,8 @@ keywords:
   - identity-conformance
   - declared-identity
   - divergence-witnesses
-  - lean4
-  - theorem-proving
+  - equivalence-relations
+  - conformance-auditing
   - formal-verification
+  - theorem-proving
+  - lean4

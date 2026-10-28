@@ -1,13 +1,12 @@
-
-
-
-
-
 #Requires -Version 7.3
 
 <#
 Run the repository release-validation sequence.
 It does not build or publish a local Python package.
+
+Run with:
+
+.\rel.ps1
 #>
 
 Set-StrictMode -Version Latest
@@ -128,8 +127,15 @@ Invoke-Step "B2) Run Lean tests" "lake test" {
     lake test
 }
 
-Invoke-Step "B3) Run Lean linter" "lake lint" {
-    lake lint
+Invoke-Step "B3) Run Lean linter" "cd lint; lake update; lake lint" {
+    Push-Location (Join-Path $PSScriptRoot "lint")
+    try {
+        lake update
+        lake lint
+    }
+    finally {
+        Pop-Location
+    }
 }
 
 # ============================================================
