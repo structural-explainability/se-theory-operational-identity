@@ -138,12 +138,6 @@ git tag vX.Y.Z -m "X.Y.Z"
 git push origin vX.Y.Z
 ```
 
-Create GitHub Release after pushing tag, for example with a command like this:
-
-```shell
-gh release create v0.1.0 --verify-tag --title "0.1.0 " --generate-notes
-```
-
 ## Only As Needed (delete a tag)
 
 ```shell
