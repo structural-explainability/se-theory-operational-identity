@@ -1,4 +1,4 @@
-# SE Theory: Neutral Substrate
+# SE Theory: Operational Identity
 
 [![Docs Site](https://img.shields.io/badge/docs-site-blue?logo=github)](https://structural-explainability.github.io/se-theory-operational-identity/)
 [![Repo](https://img.shields.io/badge/repo-GitHub-black?logo=github)](https://github.com/structural-explainability/se-theory-operational-identity)

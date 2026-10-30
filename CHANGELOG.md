@@ -13,9 +13,19 @@ and this project adheres to **[Semantic Versioning](https://semver.org/spec/v2.0
 
 ---
 
-## [0.1.0] - 2026-10-28
+## [0.1.0] - 2026-10-30
 
-### Added
+### Updated
+
+- Updated the Lean toolchain (see `lean-toolchain`).
+- `rel.ps1`: added `lake clean`, `CITATION.cff` validation, and Markdown lint.
+- `ci-lean.yml`: added `CITATION.cff` validation, SE manifest validation,
+  Markdown lint, and cancellation of superseded runs on the same branch.
+- `leanchecker` and the axiom audit are skipped in this repo because it
+  depends on other SE theory packages. A source scan for `axiom`
+  declarations and `native_decide` runs instead.
+
+### Earlier Added
 
 - `SE.OperationalIdentity.Declared`: a declared identity relation as a supplied
   equivalence, with constructors from generating pairs, from a Persistence
@@ -77,12 +87,12 @@ Follow these steps exactly when creating a new release.
 
 1.1. CITATION.cff: update version and date-released
 1.2. lakefile.toml: update version
-1.3. CHANGELOG.md: add section, move unreleased entries, update links, release command
+1.3. CHANGELOG.md: add section, move unreleased entries, update links, update release command
 1.4. pyproject.toml: update version (near top of the file)
 
 ### Task 2. Set up and Validate
 
-```shell
+```pwsh
 # set up or update Python environment
 # Run repository checks.
 .\sit.ps1

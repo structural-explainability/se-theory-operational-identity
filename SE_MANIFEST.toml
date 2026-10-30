@@ -34,7 +34,7 @@ role = "theory"
 
 [depends]
 required = [
-  { repository = "se-theory-persistence", kind = "semantic", version = "v0.6.0" },
+  { repository = "se-theory-persistence", kind = "semantic" },
 ]
 optional = []
 

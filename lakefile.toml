@@ -13,7 +13,7 @@
 # ============================================================
 
 name = "se-theory-operational-identity"
-version = "0.1.0"
+version = "0.1.0" # CUSTOM: Sets the current release version
 license = "Apache-2.0"
 
 # ============================================================
@@ -31,7 +31,7 @@ testDriver = "SETest"
 [[require]]
 name = "se-theory-persistence"
 git = "https://github.com/structural-explainability/se-theory-persistence"
-rev = "v0.6.0"
+rev = "v0.6.1"
 
 # ============================================================
 # === PUBLIC LIBRARY ===
@@ -51,7 +51,7 @@ rev = "v0.6.0"
 [[lean_lib]]
 name = "SE.OperationalIdentity"
 roots = ["SE.OperationalIdentity"]
-globs = ["SE.OperationalIdentity.*"]
+globs = ["SE", "SE.OperationalIdentity.*"]
 
 # ============================================================
 # === TEST LIBRARY ===

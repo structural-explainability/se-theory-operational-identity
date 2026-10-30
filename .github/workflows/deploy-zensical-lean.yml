@@ -1,7 +1,7 @@
 # ============================================================
 # .github/workflows/deploy-zensical-lean.yml (CUSTOM LEAN+ALL-PY-REPOS)
 # ============================================================
-# Updated: 2026-10-03 CUSTOM
+# Updated: 2026-10-30
 #
 # WHY: Build and deploy documentation to GitHub Pages on pushes to main.
 # REQ: Repo Settings -> Pages -> Build and deployment -> Source:
@@ -64,6 +64,11 @@ jobs:
           cache-dependency-glob: "uv.lock"
           # WHY: Invalidate dependency cache when the committed lockfile changes.
 
+      - name: A4) Install project Python
+        run: uv python install
+        # WHY: Ensures the Python version declared in .python-version is available.
+        # OBS: uv manages the interpreter locally in the CI environment.
+
       - name: A5) Install dependencies from committed lockfile
         run: uv sync --frozen
         # WHY: Install all configured dependency groups exactly from uv.lock.
@@ -79,20 +84,30 @@ jobs:
         # WHY: Version output makes deployment logs easier to debug when tools change.
 
       # ============================================================
-      # AA) ASSEMBLE: Checkout code and set up environment
+      # AA) ASSEMBLE LEAN ENVIRONMENT
       # ============================================================
 
       - name: AA1) Set up Lean
-        uses: leanprover/lean-action@fe408643ea7367d8c0404a8be3975bb145f5fb64 # v1
+        uses: leanprover/lean-action@24581d74d674803a25a81b10b059c5c0cdd344c6 # v1
         with:
           build: false
           test: false
           lint: false
+        # WHY: Install the repository's declared Lean toolchain for API docs.
+        # OBS: Build, test, and lint are handled by the Lean CI workflow.
 
       - name: AA2) Install native build tools
         run: |
           sudo apt-get update
           sudo apt-get install --yes build-essential
+        # WHY: Lean API documentation generation requires native build tooling
+        # on the Linux GitHub Actions runner.
+
+      - name: AA3) Show lean tool versions
+        run: |
+          lean --version
+          lake --version
+          # WHY: Version output makes Lean documentation failures easier to diagnose.
 
       # ============================================================
       # B) BUILD ZENSICAL SITE
@@ -136,7 +151,6 @@ jobs:
           cat > docbuild/lakefile.toml <<EOF
           name = "docbuild"
           reservoir = false
-          version = "0.1.1"
           packagesDir = "../.lake/packages"
 
           [[require]]
@@ -169,8 +183,11 @@ jobs:
           THIS_LIB="$GITHUB_WORKSPACE/.lake/build/lib/lean"
           PERSISTENCE_LIB="$GITHUB_WORKSPACE/.lake/packages/se-theory-persistence/.lake/build/lib/lean"
           merge_se() {
-            src="$1"; dst="$2"
+            src="$1"
+            dst="$2"
+
             mkdir -p "$dst/SE"
+
             for f in "$src"/SE/* "$src"/SE.*; do
               [ -e "$f" ] || continue
               rel="${f#"$src"/}"
@@ -196,6 +213,7 @@ jobs:
           rm -rf site/lean
           mkdir -p site/lean
           cp -R docbuild/.lake/build/doc/. site/lean/
+        # WHY: Publish generated Lean API documentation under /lean/.
 
       - name: BB5) Verify combined documentation site
         run: |
@@ -207,6 +225,7 @@ jobs:
             >> "$GITHUB_STEP_SUMMARY"
           echo "- Lean API reference: site/lean/index.html" \
             >> "$GITHUB_STEP_SUMMARY"
+        # WHY: Confirm both documentation surfaces exist before deployment.
 
       # ============================================================
       # D) DEPLOY

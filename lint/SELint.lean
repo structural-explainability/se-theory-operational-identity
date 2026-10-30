@@ -45,7 +45,7 @@ end SELint
   nonClassInstance
   simpNF
   simpComm
-  in SE.OperationalIdentity
+  in SE
 
 public def main : IO Unit :=
   pure ()
